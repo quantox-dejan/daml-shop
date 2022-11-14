@@ -1,0 +1,17 @@
+module Product where
+
+template Product
+    with
+        id: Text
+        name: Text
+        public: Party
+        owner: Party
+        user_shop_id: Text
+        price: Decimal
+        amount: Decimal
+    where
+        ensure id /= "" && name /= ""
+        signatory owner
+        observer public 
+        key (owner, user_shop_id, id): (Party, Text, Text)
+        maintainer key._1

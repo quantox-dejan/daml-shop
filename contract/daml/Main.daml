@@ -1,0 +1,44 @@
+module Main where
+
+import Daml.Script
+import UserShop
+
+setup : Script ()
+setup = script do
+-- user_setup_begin
+  alice <- allocatePartyWithHint "Alice" (PartyIdHint "Alice")
+  bob <- allocatePartyWithHint "Bob" (PartyIdHint "Bob")
+  admin <- allocatePartyWithHint "Admin" (PartyIdHint "Admin")
+  public <- allocatePartyWithHint "Public" (PartyIdHint "Public")
+  aliceId <- validateUserId "alice"
+  bobId <- validateUserId "bob"
+  adminId <- validateUserId "admin"
+  publicId <- validateUserId "public"
+  createUser (User aliceId (Some alice)) [CanActAs alice]
+  createUser (User bobId (Some bob)) [CanActAs bob]
+  createUser (User adminId (Some admin)) [CanActAs admin]
+  createUser (User publicId (Some public)) [CanActAs public]
+-- user_setup_end
+
+  aliceShopRegistration <- submit alice do
+    createCmd UserShopRegistration
+      with
+        name = "Alice's shop"
+        requester = alice
+        admin = admin
+        public = public
+
+  aliceShop <- submit admin do
+    exerciseCmd aliceShopRegistration Accept 
+      with
+        id = "alice-1"
+
+  aliceProduct <- submit alice do
+    exerciseCmd aliceShop AddNewProduct
+      with
+        product_name = "Super secret information"
+        product_id = "super-secret-information"
+        price = 10000.0
+        initial_amount = 1.0
+
+  return ()

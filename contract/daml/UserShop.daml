@@ -1,0 +1,70 @@
+module UserShop where
+
+import Product
+
+template UserShop
+    with
+        id: Text
+        owner: Party
+        name: Text
+        public: Party
+        admin: Party
+    where
+        ensure id /= ""
+        signatory owner, admin
+        observer public
+
+        key (owner, id): (Party, Text)
+        maintainer key._1
+
+        nonconsuming choice AddNewProduct : ContractId Product
+            with
+                product_id: Text
+                product_name: Text
+                price: Decimal
+                initial_amount: Decimal
+            controller owner
+            do
+                create Product
+                    with
+                        id = product_id
+                        name = product_name
+                        user_shop_id = id
+                        amount = initial_amount
+                        ..
+
+
+template UserShopRegistration
+    with
+        name: Text
+        requester: Party
+        admin: Party
+        public: Party
+    where
+        ensure name /= ""
+        signatory requester
+        observer admin
+        choice Register : ContractId UserShopRegistration
+            with
+                user_shop_name: Text
+            controller requester
+            do
+                create UserShopRegistration
+                    with
+                        name = user_shop_name
+                        ..
+
+        choice Accept : ContractId UserShop
+            with
+                id: Text
+            controller admin
+            do
+                create UserShop
+                    with
+                        owner = requester
+                        ..
+
+        choice Reject : ()
+            controller admin
+            do
+                return ()
