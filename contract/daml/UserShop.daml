@@ -33,7 +33,6 @@ template UserShop
                         amount = initial_amount
                         ..
 
-
 template UserShopRegistration
     with
         name: Text
@@ -41,7 +40,7 @@ template UserShopRegistration
         admin: Party
         public: Party
     where
-        ensure name /= ""
+        ensure name /= "" && requester /= public && admin /= public
         signatory requester
         observer admin
         choice Register : ContractId UserShopRegistration

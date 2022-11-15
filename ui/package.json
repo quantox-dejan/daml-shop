@@ -1,0 +1,51 @@
+{
+  "name": "daml-shop-fe",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:7575",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@daml.js/shop-contract-0.0.1": "file:../shared/shop-contract-0.0.1",
+    "@daml/ledger": "^2.4.0",
+    "@daml/react": "^2.4.0",
+    "@daml/types": "^2.4.0",
+    "@emotion/react": "^11.10.0",
+    "@emotion/server": "^11.10.0",
+    "@hookform/resolvers": "^2.9.10",
+    "@mantine/core": "5.7.2",
+    "@mantine/ds": "5.7.2",
+    "@mantine/hooks": "5.7.2",
+    "@mantine/next": "5.7.2",
+    "@mojotech/json-type-validation": "^3.1.0",
+    "@tabler/icons": "^1.83.1",
+    "@tanstack/react-query": "4.16.1",
+    "js-cookie": "^3.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "next": "13.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "7.39.4",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@types/history": "^4.7.0",
+    "@types/js-cookie": "^3.0.2",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "eslint": "8.27.0",
+    "eslint-config-next": "13.0.3",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.31.10",
+    "typescript": "4.8.4"
+  }
+}

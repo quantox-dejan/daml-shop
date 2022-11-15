@@ -1,0 +1,6 @@
+a,
+a:active,
+a:visited {
+  color: unset;
+  text-decoration: none;
+}

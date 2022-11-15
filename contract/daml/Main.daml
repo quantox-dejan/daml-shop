@@ -20,6 +20,24 @@ setup = script do
   createUser (User publicId (Some public)) [CanActAs public]
 -- user_setup_end
 
+  -- requester can't be public (i.e unauthenticated user)
+  submitMustFail alice do
+    createCmd UserShopRegistration
+      with
+        name = "Alice's shop"
+        requester = public
+        admin = admin
+        public = public        
+
+  -- admin can't be public
+  submitMustFail alice do
+    createCmd UserShopRegistration
+      with
+        name = "Alice's shop"
+        requester = alice
+        admin = public
+        public = public        
+
   aliceShopRegistration <- submit alice do
     createCmd UserShopRegistration
       with

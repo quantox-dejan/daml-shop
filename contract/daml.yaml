@@ -10,3 +10,6 @@ dependencies:
   - daml-prim
   - daml-stdlib
   - daml-script
+codegen:
+  js:
+    output-directory: ../shared
