@@ -21,7 +21,7 @@ const UserShopPage: NextPage = () => {
         <ListUserShopProducts
           shopName={data?.payload.name ?? "User shop"}
           id={data.payload.id}
-          my={data.payload.id === myShopData?.payload.id}
+          my={data.payload.id === myShopData?.payload?.id}
         />
       ) : error ? (
         <Text>{JSON.stringify(error)}</Text>
