@@ -1,6 +1,6 @@
 import Layout from "@components/Layout/Layout";
 import { ListUserShopProducts } from "@components/ListUserShopProducts/ListUserShopProducts";
-import { LoadingOverlay, Text, Title } from "@mantine/core";
+import { LoadingOverlay, Text } from "@mantine/core";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useGetMyShop } from "queries/useGetMyShop";
@@ -19,9 +19,9 @@ const UserShopPage: NextPage = () => {
     <Layout>
       {isSuccess && !data ? null : isSuccess && !!data ? (
         <ListUserShopProducts
-          shopName={data?.name ?? "User shop"}
-          id={data.id}
-          my={data.id === myShopData?.id}
+          shopName={data?.payload.name ?? "User shop"}
+          id={data.payload.id}
+          my={data.payload.id === myShopData?.payload.id}
         />
       ) : error ? (
         <Text>{JSON.stringify(error)}</Text>

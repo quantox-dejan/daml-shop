@@ -50,6 +50,7 @@ export const ListUserShopProducts = ({ id, my, shopName }: Props) => {
             leftIcon={<IconHeartPlus />}
             compact
             variant="subtle"
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onClick={() => {}}
           >
             Add to favorites
@@ -78,11 +79,13 @@ export const ListUserShopProducts = ({ id, my, shopName }: Props) => {
           <>
             {isSuccess && data?.length ? (
               data?.map((x) => (
-                <Grid.Col md={4} lg={4} key={x.id}>
+                <Grid.Col md={4} lg={4} key={x.payload.id}>
                   <Product
-                    product={x}
+                    product={x.payload}
                     my={my}
-                    onBuyClick={() => router.push(`/shops/${id}/${x.id}`)}
+                    onBuyClick={() =>
+                      router.push(`/shops/${id}/${x.payload.id}`)
+                    }
                   />
                 </Grid.Col>
               ))

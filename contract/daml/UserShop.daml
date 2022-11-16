@@ -14,8 +14,8 @@ template UserShop
         signatory owner, admin
         observer public
 
-        key (owner, id): (Party, Text)
-        maintainer key._1
+        key owner: Party
+        maintainer key
 
         nonconsuming choice AddNewProduct : ContractId Product
             with

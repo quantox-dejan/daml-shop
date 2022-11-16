@@ -1,7 +1,5 @@
-import { ProductDto } from "@context/NearContext";
 import {
   ActionIcon,
-  Avatar,
   Badge,
   Button,
   Card,
@@ -9,19 +7,13 @@ import {
   createStyles,
   Group,
   Text,
-  Title,
 } from "@mantine/core";
-import {
-  IconHeart,
-  IconHeartPlus,
-  IconShoppingCart,
-  IconStar,
-} from "@tabler/icons";
-import { utils } from "near-api-js";
+import { IconHeart, IconShoppingCart, IconStar } from "@tabler/icons";
 import componentStyles from "./Product.module.css";
+import { Product as UserShopProduct } from "@daml.js/shop-contract-0.0.1/lib/Product";
 
 interface Props {
-  product?: ProductDto;
+  product?: UserShopProduct;
   usePlaceholder?: boolean;
   onBuyClick?: () => void;
   onFavoriteClick?: () => void;
@@ -174,7 +166,7 @@ export const Product = (props: Props) => {
         <div>
           <Text weight={500}>{product.name}</Text>
         </div>
-        {product.quantity_on_stock > 0 ? (
+        {Number(product.amount) > 0 ? (
           <Badge variant="outline">Available</Badge>
         ) : (
           <Badge className={classes.notOnStock} variant="outline">
@@ -197,14 +189,13 @@ export const Product = (props: Props) => {
         <Group spacing={30}>
           <div>
             <Text size="xl" weight={700} sx={{ lineHeight: 1 }}>
-              {Number(utils.format.formatNearAmount(product.price)).toFixed(4) +
-                " N"}
+              {"$ " + Number(product.price).toFixed(2)}
             </Text>
           </div>
 
           <Button
             leftIcon={<IconShoppingCart />}
-            disabled={!product.quantity_on_stock}
+            disabled={!Number(product.amount)}
             radius="xl"
             style={{ flex: 1 }}
             onClick={onBuyClick}

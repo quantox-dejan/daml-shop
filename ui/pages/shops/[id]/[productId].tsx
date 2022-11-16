@@ -1,18 +1,9 @@
 import Layout from "@components/Layout/Layout";
-import { ListUserShopProducts } from "@components/ListUserShopProducts/ListUserShopProducts";
 import { Titlebar } from "@components/Titlebar/Titlebar";
-import {
-  Button,
-  Card,
-  Group,
-  LoadingOverlay,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Button, LoadingOverlay } from "@mantine/core";
 import { IconArrowBack } from "@tabler/icons";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useGetMyShop } from "queries/useGetMyShop";
 import { useGetProduct } from "queries/useGetProduct";
 
 const UserShopPage: NextPage = () => {
@@ -20,15 +11,11 @@ const UserShopPage: NextPage = () => {
   const {
     query: { id, productId },
   } = useRouter();
-  const { data, isLoading, isSuccess, error } = useGetProduct(
-    id as string,
-    productId as string
-  );
+  const { data, isLoading } = useGetProduct(id as string, productId as string);
 
-  const { data: myShopData } = useGetMyShop();
   return (
     <Layout>
-      <Titlebar title={data?.name ?? "Product name"}>
+      <Titlebar title={data?.payload.name ?? "Product name"}>
         <Button
           leftIcon={<IconArrowBack />}
           compact

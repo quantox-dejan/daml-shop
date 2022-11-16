@@ -13,7 +13,7 @@ const MyShopPage: NextPage = () => {
         <NoShopsYet />
       ) : isSuccess && !!data ? (
         <ListUserShopProducts
-          id={data.payload.user_shop_id}
+          id={data.payload.id}
           my
           shopName={data.payload.name ?? "My shop"}
         />

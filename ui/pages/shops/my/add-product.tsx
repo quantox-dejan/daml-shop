@@ -1,7 +1,7 @@
 import { CreateProductForm } from "@components/CreateProductForm/CreateProductForm";
 import Layout from "@components/Layout/Layout";
 import { Titlebar } from "@components/Titlebar/Titlebar";
-import { Button, Card, Group, Space, Title } from "@mantine/core";
+import { Button, Space } from "@mantine/core";
 import { IconArrowBack } from "@tabler/icons";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -21,7 +21,7 @@ const AddProductPage: NextPage = () => {
         </Button>
       </Titlebar>
       <Space h={20} />
-      <CreateProductForm />
+      <CreateProductForm userShopId={router.query.id as string} />
     </Layout>
   );
 };
