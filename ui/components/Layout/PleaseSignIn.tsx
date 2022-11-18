@@ -1,7 +1,9 @@
 import { Box, Button, Card, Center, Container, Text } from "@mantine/core";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 export const PleaseSignIn = () => {
+  const router = useRouter();
+  console.debug({ router });
   return (
     <Container>
       <Card>
@@ -9,7 +11,15 @@ export const PleaseSignIn = () => {
           <Box mr={10}>
             <Text>🚀 Please</Text>
           </Box>
-          <Button onClick={() => Router.push("/signin")}>Sign in</Button>
+          <Button
+            onClick={() =>
+              router.push(
+                `/signin?returnUrl=${encodeURIComponent(router.asPath)}`
+              )
+            }
+          >
+            Sign in
+          </Button>
           <Box ml={10}>
             <Text>to use the Daml Shop</Text>
           </Box>

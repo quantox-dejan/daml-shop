@@ -23,7 +23,11 @@ if (global?.window) {
   apiUrl.unshift("api");
 }
 
-export const createToken = (party: string, publicParty: string) =>
+export const createToken = (
+  party: string,
+  publicParty: string,
+  partyName?: string
+) =>
   jwt.sign(
     {
       "https://daml.com/ledger-api": {
@@ -33,6 +37,8 @@ export const createToken = (party: string, publicParty: string) =>
         actAs: [party],
         readAs: [party, publicParty],
       },
+      party,
+      partyName,
     },
     "secret"
   );

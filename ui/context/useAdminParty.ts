@@ -7,7 +7,8 @@ export const useAdminParty = () => {
     return undefined;
   }
 
-  return data.parties?.find(
-    (x) => x.displayName?.toLocaleLowerCase() === userAdminDisplayName
+  const admin = data.parties?.find(
+    (x) => x.displayName?.toLowerCase() === userAdminDisplayName.toLowerCase()
   );
+  return admin;
 };

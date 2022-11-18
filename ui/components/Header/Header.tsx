@@ -26,7 +26,8 @@ import componentStyles from "./Header.module.css";
 import { Logo } from "./Logo";
 import { useUserState } from "@context/UserContext";
 import { isAuthenticated } from "@context/utils";
-import Router from "next/router";
+import { useRouter } from "next/router";
+import { useAdminParty } from "@context/useAdminParty";
 
 const useStyles = createStyles((theme) => ({
   logo: {
@@ -114,6 +115,9 @@ const Header = () => {
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   const user = useUserState();
+  const adminParty = useAdminParty();
+  const isAdmin = user.isAuthenticated && adminParty?.identifier === user.party;
+  const router = useRouter();
 
   return (
     <div className={classes.header}>
@@ -220,6 +224,15 @@ const Header = () => {
                   >
                     <Link href="/items/wishlist">Wish list</Link>
                   </Menu.Item>
+                  {isAdmin ? (
+                    <>
+                      <Menu.Divider />
+                      <Menu.Label>Administration</Menu.Label>
+                      <Menu.Item icon={<IconReceipt2 size={14} stroke={1.5} />}>
+                        <Link href="/admin/shops">User shop registrations</Link>
+                      </Menu.Item>
+                    </>
+                  ) : null}
                   <Menu.Divider />
                   <Menu.Label>Account</Menu.Label>
                   <Menu.Item icon={<IconReceipt2 size={14} stroke={1.5} />}>
@@ -229,7 +242,9 @@ const Header = () => {
                   </Menu.Item>
                   <Menu.Item
                     icon={<IconLogout size={14} stroke={1.5} />}
-                    onClick={() => Router.push("/signout")}
+                    onClick={() =>
+                      router.push(`/signout?returnUrl=${router.asPath}`)
+                    }
                   >
                     Sign out
                   </Menu.Item>
@@ -237,7 +252,9 @@ const Header = () => {
               ) : (
                 <Menu.Item
                   icon={<IconLogin size={14} stroke={1.5} />}
-                  onClick={() => Router.push("/signin")}
+                  onClick={() =>
+                    router.push(`/signin?returnUrl=${router.asPath}`)
+                  }
                 >
                   Sign in
                 </Menu.Item>

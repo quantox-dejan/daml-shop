@@ -14,7 +14,7 @@ import {
   optional,
 } from "@mojotech/json-type-validation";
 
-interface Party {
+export interface Party {
   displayName?: string;
   identifier: string;
   isLocal: boolean;
@@ -156,6 +156,7 @@ export const getInitState = (publicParty?: Party) => {
 
   const party = jwt.party;
   const partyName = jwt.partyName;
+  console.debug({ token, jwt });
   if (!party || !partyName) {
     return {
       isAuthenticated: false,
